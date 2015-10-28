@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ package com.badlogic.gdx.tests.gwt;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
@@ -51,12 +52,14 @@ import com.badlogic.gdx.tests.BlitTest;
 import com.badlogic.gdx.tests.Box2DCharacterControllerTest;
 import com.badlogic.gdx.tests.Box2DTest;
 import com.badlogic.gdx.tests.Box2DTestCollection;
+import com.badlogic.gdx.tests.BufferUtilsTest;
 import com.badlogic.gdx.tests.ComplexActionTest;
 import com.badlogic.gdx.tests.CustomShaderSpriteBatchTest;
 import com.badlogic.gdx.tests.DecalTest;
 import com.badlogic.gdx.tests.EdgeDetectionTest;
 import com.badlogic.gdx.tests.FilterPerformanceTest;
 import com.badlogic.gdx.tests.FrameBufferTest;
+import com.badlogic.gdx.tests.GLProfilerErrorTest;
 import com.badlogic.gdx.tests.GestureDetectorTest;
 import com.badlogic.gdx.tests.GroupCullingTest;
 import com.badlogic.gdx.tests.GroupFadeTest;
@@ -99,6 +102,7 @@ import com.badlogic.gdx.tests.TimeUtilsTest;
 import com.badlogic.gdx.tests.UITest;
 import com.badlogic.gdx.tests.VertexBufferObjectShaderTest;
 import com.badlogic.gdx.tests.YDownTest;
+import com.badlogic.gdx.tests.g3d.ModelCacheTest;
 import com.badlogic.gdx.tests.g3d.ShadowMappingTest;
 import com.badlogic.gdx.tests.superkoalio.SuperKoalio;
 import com.badlogic.gdx.tests.utils.GdxTest;
@@ -295,20 +299,15 @@ public class GwtTestWrapper extends GdxTest {
 		public boolean isKeyPressed (int key) {
 			return input.isKeyPressed(key);
 		}
-		
+
 		@Override
 		public boolean isKeyJustPressed (int key) {
 			return input.isKeyJustPressed(key);
 		}
 
 		@Override
-		public void getTextInput (TextInputListener listener, String title, String text) {
-			input.getTextInput(listener, title, text);
-		}
-
-		@Override
-		public void getPlaceholderTextInput (TextInputListener listener, String title, String placeholder) {
-			input.getPlaceholderTextInput(listener, title, placeholder);
+		public void getTextInput (TextInputListener listener, String title, String text, String hint) {
+			input.getTextInput(listener, title, text, hint);
 		}
 
 		@Override
@@ -370,6 +369,11 @@ public class GwtTestWrapper extends GdxTest {
 		public void setCatchMenuKey (boolean catchMenu) {
 			input.setCatchMenuKey(catchMenu);
 		}
+		
+		@Override
+		public boolean isCatchMenuKey () {
+			return input.isCatchMenuKey();
+		}
 
 		@Override
 		public void setInputProcessor (InputProcessor processor) {
@@ -411,10 +415,6 @@ public class GwtTestWrapper extends GdxTest {
 		@Override
 		public void setCursorPosition (int x, int y) {
 			setCursorPosition(x, y);
-		}
-
-		@Override
-		public void setCursorImage (Pixmap pixmap, int xHotspot, int yHotspot) {
 		}
 	}
 
@@ -484,6 +484,10 @@ public class GwtTestWrapper extends GdxTest {
 		}
 	}, new Instancer() {
 		public GdxTest instance () {
+			return new BufferUtilsTest();
+		}
+	}, new Instancer() {
+		public GdxTest instance () {
 			return new ComplexActionTest();
 		}
 	}, new Instancer() {
@@ -515,6 +519,10 @@ public class GwtTestWrapper extends GdxTest {
 		}, new Instancer() {
 			public GdxTest instance () {
 				return new GestureDetectorTest();
+			}
+		}, new Instancer() {
+			public GdxTest instance () {
+				return new GLProfilerErrorTest();
 			}
 		}, new Instancer() {
 			public GdxTest instance () {
@@ -573,6 +581,10 @@ public class GwtTestWrapper extends GdxTest {
 		}, new Instancer() {
 			public GdxTest instance () {
 				return new MipMapTest();
+			}
+		}, new Instancer() {
+			public GdxTest instance () {
+				return new ModelCacheTest();
 			}
 		}, new Instancer() {
 			public GdxTest instance () {

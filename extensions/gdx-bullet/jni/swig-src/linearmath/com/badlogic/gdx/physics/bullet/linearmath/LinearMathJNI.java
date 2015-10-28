@@ -17,8 +17,6 @@ import com.badlogic.gdx.utils.Pool;
 
 public class LinearMathJNI {
   public final static native int btGetVersion();
-  public final static native void btInfinityMask_set(int jarg1);
-  public final static native int btInfinityMask_get();
   public final static native float btSqrt(float jarg1);
   public final static native float btFabs(float jarg1);
   public final static native float btCos(float jarg1);
@@ -197,6 +195,12 @@ public class LinearMathJNI {
   public final static native Quaternion btQuaternion_slerp(long jarg1, btQuaternion jarg1_, Quaternion jarg2, float jarg3);
   public final static native Quaternion btQuaternion_getIdentity();
   public final static native float btQuaternion_getW(long jarg1, btQuaternion jarg1_);
+  public final static native void btQuaternion_serialize(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionFloatData jarg2_);
+  public final static native void btQuaternion_deSerialize(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionFloatData jarg2_);
+  public final static native void btQuaternion_serializeFloat(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionFloatData jarg2_);
+  public final static native void btQuaternion_deSerializeFloat(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionFloatData jarg2_);
+  public final static native void btQuaternion_serializeDouble(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionDoubleData jarg2_);
+  public final static native void btQuaternion_deSerializeDouble(long jarg1, btQuaternion jarg1_, long jarg2, btQuaternionDoubleData jarg2_);
   public final static native void delete_btQuaternion(long jarg1);
   public final static native float dot(Quaternion jarg1, Quaternion jarg2);
   public final static native float length(Quaternion jarg1);
@@ -206,6 +210,14 @@ public class LinearMathJNI {
   public final static native Vector3 quatRotate(Quaternion jarg1, Vector3 jarg2);
   public final static native Quaternion shortestArcQuat(Vector3 jarg1, Vector3 jarg2);
   public final static native Quaternion shortestArcQuatNormalize2(Vector3 jarg1, Vector3 jarg2);
+  public final static native void btQuaternionFloatData_floats_set(long jarg1, btQuaternionFloatData jarg1_, float[] jarg2);
+  public final static native float[] btQuaternionFloatData_floats_get(long jarg1, btQuaternionFloatData jarg1_);
+  public final static native long new_btQuaternionFloatData();
+  public final static native void delete_btQuaternionFloatData(long jarg1);
+  public final static native void btQuaternionDoubleData_floats_set(long jarg1, btQuaternionDoubleData jarg1_, double[] jarg2);
+  public final static native double[] btQuaternionDoubleData_floats_get(long jarg1, btQuaternionDoubleData jarg1_);
+  public final static native long new_btQuaternionDoubleData();
+  public final static native void delete_btQuaternionDoubleData(long jarg1);
   public final static native void AabbExpand(Vector3 jarg1, Vector3 jarg2, Vector3 jarg3, Vector3 jarg4);
   public final static native boolean TestPointAgainstAabb2(Vector3 jarg1, Vector3 jarg2, Vector3 jarg3);
   public final static native boolean TestAabbAgainstAabb2(Vector3 jarg1, Vector3 jarg2, Vector3 jarg3, Vector3 jarg4);
@@ -216,7 +228,27 @@ public class LinearMathJNI {
   public final static native void btTransformAabb__SWIG_0(Vector3 jarg1, float jarg2, Matrix4 jarg3, Vector3 jarg4, Vector3 jarg5);
   public final static native void btTransformAabb__SWIG_1(Vector3 jarg1, Vector3 jarg2, float jarg3, Matrix4 jarg4, Vector3 jarg5, Vector3 jarg6);
   public final static native long testQuantizedAabbAgainstQuantizedAabb(java.nio.IntBuffer jarg1, java.nio.IntBuffer jarg2, java.nio.IntBuffer jarg3, java.nio.IntBuffer jarg4);
+  public final static native void btIDebugDraw_DefaultColors_activeObject_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_activeObject_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_deactivatedObject_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_deactivatedObject_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_wantsDeactivationObject_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_wantsDeactivationObject_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_disabledDeactivationObject_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_disabledDeactivationObject_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_disabledSimulationObject_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_disabledSimulationObject_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_aabb_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_aabb_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native void btIDebugDraw_DefaultColors_contactPoint_set(long jarg1, btIDebugDraw.DefaultColors jarg1_, long jarg2, btVector3 jarg2_);
+  public final static native long btIDebugDraw_DefaultColors_contactPoint_get(long jarg1, btIDebugDraw.DefaultColors jarg1_);
+  public final static native long new_btIDebugDraw_DefaultColors();
+  public final static native void delete_btIDebugDraw_DefaultColors(long jarg1);
   public final static native void delete_btIDebugDraw(long jarg1);
+  public final static native long btIDebugDraw_getDefaultColors(long jarg1, btIDebugDraw jarg1_);
+  public final static native long btIDebugDraw_getDefaultColorsSwigExplicitbtIDebugDraw(long jarg1, btIDebugDraw jarg1_);
+  public final static native void btIDebugDraw_setDefaultColors(long jarg1, btIDebugDraw jarg1_, long jarg2, btIDebugDraw.DefaultColors jarg2_);
+  public final static native void btIDebugDraw_setDefaultColorsSwigExplicitbtIDebugDraw(long jarg1, btIDebugDraw jarg1_, long jarg2, btIDebugDraw.DefaultColors jarg2_);
   public final static native void btIDebugDraw_drawLine__SWIG_0(long jarg1, btIDebugDraw jarg1_, Vector3 jarg2, Vector3 jarg3, Vector3 jarg4);
   public final static native void btIDebugDraw_drawLine__SWIG_1(long jarg1, btIDebugDraw jarg1_, Vector3 jarg2, Vector3 jarg3, Vector3 jarg4, Vector3 jarg5);
   public final static native void btIDebugDraw_drawLineSwigExplicitbtIDebugDraw__SWIG_1(long jarg1, btIDebugDraw jarg1_, Vector3 jarg2, Vector3 jarg3, Vector3 jarg4, Vector3 jarg5);
@@ -259,6 +291,8 @@ public class LinearMathJNI {
   public final static native void btIDebugDraw_drawConeSwigExplicitbtIDebugDraw(long jarg1, btIDebugDraw jarg1_, float jarg2, float jarg3, int jarg4, Matrix4 jarg5, Vector3 jarg6);
   public final static native void btIDebugDraw_drawPlane(long jarg1, btIDebugDraw jarg1_, Vector3 jarg2, float jarg3, Matrix4 jarg4, Vector3 jarg5);
   public final static native void btIDebugDraw_drawPlaneSwigExplicitbtIDebugDraw(long jarg1, btIDebugDraw jarg1_, Vector3 jarg2, float jarg3, Matrix4 jarg4, Vector3 jarg5);
+  public final static native void btIDebugDraw_flushLines(long jarg1, btIDebugDraw jarg1_);
+  public final static native void btIDebugDraw_flushLinesSwigExplicitbtIDebugDraw(long jarg1, btIDebugDraw jarg1_);
   public final static native long new_btIDebugDraw();
   public final static native void btIDebugDraw_director_connect(btIDebugDraw obj, long cptr, boolean mem_own, boolean weak_global);
   public final static native void btIDebugDraw_change_ownership(btIDebugDraw obj, long cptr, boolean take_or_release);
@@ -538,6 +572,12 @@ public class LinearMathJNI {
   public final static native long GrahamVector3_SWIGUpcast(long jarg1);
   public final static native long btDefaultMotionState_SWIGUpcast(long jarg1);
 
+  public static long SwigDirector_btIDebugDraw_getDefaultColors(btIDebugDraw self) {
+    return btIDebugDraw.DefaultColors.getCPtr(self.getDefaultColors());
+  }
+  public static void SwigDirector_btIDebugDraw_setDefaultColors(btIDebugDraw self, long arg0) {
+    self.setDefaultColors(new btIDebugDraw.DefaultColors(arg0, false));
+  }
   public static void SwigDirector_btIDebugDraw_drawLine__SWIG_0(btIDebugDraw self, Vector3 from, Vector3 to, Vector3 color) {
     self.drawLine(from, to, color);
   }
@@ -609,6 +649,9 @@ public class LinearMathJNI {
   }
   public static void SwigDirector_btIDebugDraw_drawPlane(btIDebugDraw self, Vector3 planeNormal, float planeConst, Matrix4 transform, Vector3 color) {
     self.drawPlane(planeNormal, planeConst, transform, color);
+  }
+  public static void SwigDirector_btIDebugDraw_flushLines(btIDebugDraw self) {
+    self.flushLines();
   }
   public static void SwigDirector_btMotionState_getWorldTransform(btMotionState self, Matrix4 worldTrans) {
     self.getWorldTransform(worldTrans);
