@@ -27,6 +27,7 @@ import com.badlogic.gdx.graphics.g3d.utils.MeshBuilder;
 import com.badlogic.gdx.graphics.g3d.utils.RenderableSorter;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.FlushablePool;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Pool;
 
@@ -312,8 +313,8 @@ public class ModelCache implements Disposable, RenderableProvider {
 	 * All member objects might (depending on possibilities) be used by reference and should not change while the cache is used. If
 	 * the {@link Renderable#bones} member is not null then skinning is assumed and the renderable will be added as-is, by
 	 * reference. Otherwise the renderable will be merged with other renderables as much as possible, depending on the
-	 * {@link Mesh#getVertexAttributes()}, {@link Renderable#material} and {@link Renderable#primitiveType} (in that order). The
-	 * {@link Renderable#environment}, {@link Renderable#shader} and {@link Renderable#userData} values (if any) are ignored.
+	 * {@link Mesh#getVertexAttributes()}, {@link Renderable#material} and primitiveType (in that order). The
+	 * {@link Renderable#environment}, {@link Renderable#shader} and {@link Renderable#userData} values (if any) are removed.
 	 * @param renderable The {@link Renderable} to add, should not change while the cache is needed. */
 	public void add (Renderable renderable) {
 		if (!building) throw new GdxRuntimeException("Can only add items to the ModelCache in between .begin() and .end()");
@@ -340,6 +341,10 @@ public class ModelCache implements Disposable, RenderableProvider {
 	@Override
 	public void getRenderables (Array<Renderable> renderables, Pool<Renderable> pool) {
 		if (building) throw new GdxRuntimeException("Cannot render a ModelCache in between .begin() and .end()");
+		for (Renderable r : this.renderables) {
+			r.shader = null;
+			r.environment = null;
+		}
 		renderables.addAll(this.renderables);
 	}
 
@@ -347,39 +352,5 @@ public class ModelCache implements Disposable, RenderableProvider {
 	public void dispose () {
 		if (building) throw new GdxRuntimeException("Cannot dispose a ModelCache in between .begin() and .end()");
 		meshPool.dispose();
-	}
-
-	/** Keeps track of the obtained items and frees them on the call to {@link #flush()}.
-	 * @author Xoppa */
-	private static abstract class FlushablePool<T> extends Pool<T> {
-		protected Array<T> obtained = new Array<T>();
-
-		public FlushablePool () {
-		}
-
-		@Override
-		public T obtain () {
-			T result = super.obtain();
-			obtained.add(result);
-			return result;
-		}
-
-		/** Frees all obtained instances. */
-		public void flush () {
-			super.freeAll(obtained);
-			obtained.clear();
-		}
-
-		@Override
-		public void free (T object) {
-			obtained.removeValue(object, true);
-			super.free(object);
-		}
-
-		@Override
-		public void freeAll (Array<T> objects) {
-			obtained.removeAll(objects, true);
-			super.freeAll(objects);
-		}
 	}
 }
